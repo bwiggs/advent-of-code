@@ -26,7 +26,8 @@ func reactStack(polymer []byte, ignore byte) int {
 	stack := []byte{}
 	for _, b := range polymer {
 
-		if b == ignore || b == ignore+32 {
+		// XOR32 converts from lower to upper in ascii
+		if b == ignore || b == ignore^32 {
 			continue
 		}
 

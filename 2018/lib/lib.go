@@ -23,3 +23,16 @@ func Max(a, b int) int {
 	}
 	return b
 }
+
+// Abs absolute values between 2 ints
+func Abs(a int) int {
+	if a < 0 {
+		return 0 - a
+	}
+	return a
+}
+
+// RectlinearDist returns the manhattan, aka taxi cab distance between 2 points.
+func RectlinearDist(ax, ay, bx, by int) int {
+	return Abs(ax-bx) + Abs(ay-by)
+}
