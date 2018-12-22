@@ -10,6 +10,59 @@ import (
 )
 
 func main() {
+	edges := make(map[string][]string)
+	degrees := make(map[string]int)
+	for _, l := range lib.ReadLines("test-input.txt") {
+		words := strings.Split(l, " ")
+		succ := words[1]
+		dep := words[7]
+
+		if _, ok := edges[succ]; !ok {
+			edges[succ] = []string{dep}
+		} else {
+			edges[succ] = append(edges[succ], dep)
+		}
+
+		if _, ok := degrees[dep]; !ok {
+			degrees[dep] = 1
+		} else {
+			degrees[dep]++
+		}
+
+		if _, ok := degrees[succ]; !ok {
+			degrees[succ] = 0
+		}
+	}
+
+	q := []string{}
+	ans := []string{}
+	for {
+		// queue up all ready tasks
+		for step := range edges {
+			if degrees[step] == 0 {
+				q = append(q, step)
+			}
+		}
+
+		// if there's not tasks, end
+		if len(q) == 0 {
+			break
+		}
+
+		sort.Slice(q, func(i, j int) bool { return q[i] < q[j] })
+
+		// process each step in the queue
+		for _, step := range q {
+			ans = append(ans, step)
+			// for k, v := range edges[step] {
+			// }
+		}
+		break
+	}
+	fmt.Println("Part 1: " + strings.Join(ans, ""))
+}
+
+func mainOld() {
 	graph := buildGraph()
 	graph.Print()
 }
