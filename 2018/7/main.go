@@ -6,13 +6,12 @@ import (
 	"strings"
 
 	"github.com/bwiggs/advent-of-code/2018/lib"
-	"github.com/davecgh/go-spew/spew"
 )
 
 func main() {
 	edges := make(map[string][]string)
 	degrees := make(map[string]int)
-	for _, l := range lib.ReadLines("test-input.txt") {
+	for _, l := range lib.ReadLines("input.txt") {
 		words := strings.Split(l, " ")
 		succ := words[1]
 		dep := words[7]
@@ -34,157 +33,39 @@ func main() {
 		}
 	}
 
-	q := []string{}
+	var q []string
 	ans := []string{}
 	for {
+
 		// queue up all ready tasks
-		for step := range edges {
-			if degrees[step] == 0 {
+		q = []string{}
+		for step, deg := range degrees {
+			if deg == 0 {
 				q = append(q, step)
 			}
 		}
 
-		// if there's not tasks, end
+		// if there's no tasks wer'e done
 		if len(q) == 0 {
 			break
 		}
 
+		// sort the steps in alphabetical order
 		sort.Slice(q, func(i, j int) bool { return q[i] < q[j] })
 
-		// process each step in the queue
-		for _, step := range q {
-			ans = append(ans, step)
-			// for k, v := range edges[step] {
-			// }
+		// process the first step in the queue
+		step := q[0]
+
+		// remove this step from all of its child's incoming degrees
+		for i := range edges[step] {
+			degrees[edges[step][i]]--
 		}
-		break
+
+		ans = append(ans, step)
+		delete(edges, step)
+		delete(degrees, step)
 	}
 	fmt.Println("Part 1: " + strings.Join(ans, ""))
-}
-
-func mainOld() {
-	graph := buildGraph()
-	graph.Print()
-}
-
-func buildGraph() *Node {
-	var root *Node
-	list := []string{}
-	for _, l := range lib.ReadLines("input.txt") {
-		fmt.Printf("\n----- %s -----\n", l)
-		words := strings.Split(l, " ")
-
-		parentName := words[1]
-		childName := words[7]
-
-		list = append(list, parentName+childName)
-
-		if root == nil {
-			fmt.Printf("root: %s\n", parentName)
-			root = NewNode(parentName)
-		}
-
-		var depNode *Node
-		if depNode = root.Find(childName); depNode == nil {
-			fmt.Printf("creating: %s\n", childName)
-			depNode = NewNode(childName)
-		}
-
-		fmt.Printf("inserting: %s -> %s\n", depNode.Name, parentName)
-		if root == nil {
-			root = NewNode(parentName)
-		}
-		root.Insert(parentName, depNode)
-	}
-
-	sort.Slice(list, func(i, j int) bool { return list[i] < list[j] })
-	fmt.Println(list)
-
-	spew.Dump(root)
-
-	return root
-}
-
-// Node type
-type Node struct {
-	Name     string
-	Children []*Node
-	Prereqs  int
-	Visited  bool
-}
-
-// NewNode returns a new Node type
-func NewNode(name string) *Node {
-	return &Node{name, []*Node{}, 0, false}
-}
-
-// Find node
-func (n *Node) Find(nodeName string) *Node {
-	if n.Name == nodeName {
-		return n
-	}
-
-	for _, c := range n.Children {
-		if nn := c.Find(nodeName); nn != nil {
-			return nn
-		}
-	}
-
-	return nil
-}
-
-// Print node tree
-func (n *Node) Print() {
-	fmt.Print(n.Name)
-
-	// remove 1 dependnency from all children
-	for _, c := range n.Children {
-		c.Prereqs--
-		if !c.Visited && c.Prereqs == 0 {
-			c.Print()
-			// nc++
-		}
-	}
-
-	// execute any children that are ready
-	// nc := 0
-	// for i := 0; nc != len(n.Children); i++ {
-	// 	if !n.Children[i].Visited && n.Children[i].Prereqs == 0 {
-	// 		n.Children[i].Print()
-	// 		nc++
-	// 	}
-	// 	if i == len(n.Children)-1 {
-	// 		i = -1
-	// 	}
-	// }
-	// n.Visited = true
-}
-
-// Insert node
-func (n *Node) Insert(nodeName string, child *Node) (inserted bool) {
-	// fmt.Printf("visiting: %s\n", n.Name)
-	if n.Name == nodeName {
-		n.Children = append(n.Children, child)
-		sort.Slice(n.Children, func(i, j int) bool { return n.Children[i].Name < n.Children[j].Name })
-		child.Prereqs++
-		return true
-	}
-
-	for _, c := range n.Children {
-		if c.Insert(nodeName, child) {
-			return true
-		}
-	}
-
-	return false
-}
-
-func (n *Node) String() string {
-	s := fmt.Sprintf("%s: ", n.Name)
-	for _, c := range n.Children {
-		s += c.Name
-	}
-	return s
 }
 
 // --- Day 7: The Sum of Its Parts ---
