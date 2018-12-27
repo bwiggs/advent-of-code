@@ -47,11 +47,11 @@ This was fun because I got to use a goto. *I don't recommend using this.*
 
 > Part 2: With 5 workers and the 60+ second step durations described above, how long will it take to complete all of the steps?
 
-Day 7 messed me up. My brain really struggled to solve this and it lead to a lot of mental frustration that I couldn't come up with a clean solution. Not that I couldn't code up a solution, but jsut that the way I was going to solve it felt really dirty.
+Day 7 messed me up. My brain really struggled to come up with a clean solution, which then lead to a lot of mental frustration. The way I was going to solve it felt really dirty, so I cheated and looked at how some others were solving it. That's when I learned about Topological Sorts, something I'd never come across before. I was on the right track with a graph solution, but if you used a Topological sort with Kahns Algorithm things a bit easier to manage.
 
-So I cheated and looked at how some others were solving it. That's when I learned about Topological Sorts. Topo sorts was new to me.
+I also found out that I had misread the requirements! I thought that all child steps had to be completed first. If you reread the instructions: "Then, even though F was available earlier, steps B and D are now also available, and B is the first alphabetically of the three." it turns out you just need to process the next alphabetical step in the list. THAT MADE THINGS WAY EASIER. Read instructions carefully!
 
-After lookup up Topo sorts and reading other's code I found out that I had misread the requirements. I thought that all child steps had to be completed first. Well friends, if you reread the instructions, you'll see that in reality you just need to process the next alphabetical step in the list, regardless of it's location in the graph. THAT MAKES THINGS WAY EASIER.
+After researching topological sorting and Kahns Algorithm. I was able to put together a working solution.
 
 Thoughts on GoLang:
 
