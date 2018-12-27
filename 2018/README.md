@@ -1,4 +1,22 @@
-# Day 1: Chronal Calibration
+# Thought and Take Aways from AoC 2018
+
+### Confidence
+
+There were times when I wasn't confident in my solution. I would think it was totally stupid and jsut go online and check the reddit board to see how others solved the problem. As it turns out I was usually on the right track. 
+
+I need to learn to have confidence in my approach to a problem and stay the course. Sometimes solutions might feel gross and incorrect, but usually im stumbling onto either an algorithm or technique that I hadn't studied or seen before. day 7 was as prime example of this. This was mentally frustrating and i was pretty hard on myself. 
+
+In the end I learned something new, like topological sorting and I was actually on the right path of uncovering Kahns Algorithm!
+
+### Read the instructions
+
+Read instructions CAREFULLY. There were times when I wouldn't read the requirements quite right OR I misread what I needed to submit as the answer.
+
+### Text Processing and Stacks
+
+I've been bitten by not using stacks to solve text processing problems too many times now. I've seen it in interviews and now in AoC. Whenever I need to process a long list of text and there some sort of matching character matching component to it, I need to be reaching for a stack. This bit me on Day 5.
+
+## Day 1: Chronal Calibration
 
 **GoLang has GOTO!**: Fun to use ``GOTO`` to solve a problem. I don't recommend it and it's probably not much cleaner than rewriting using while style loop and manual index management.
 
@@ -10,25 +28,25 @@ Read Integers from a file and find the sum.
 
 Continuously run through the numbers from the file until you hit a repeat number.
 
-# Day 2: Inventory Management System
+## Day 2: Inventory Management System
 
 ### Part 1: What is the checksum for your list of box IDs?
 
 ### Part 2: What letters are common between the two correct box IDs?
 
-# Day 3: No Matter How You Slice It
+## Day 3: No Matter How You Slice It
 
 ### Part 1: How many square inches of fabric are within two or more claims?
 
 ### Part 2: What is the ID of the only claim that doesn't overlap?
 
-# Day 4: Repose Record
+## Day 4: Repose Record
 
 ### Part 1: Strategy 1: What is the ID of the guard you chose multiplied by the minute you chose?
 
 ### Part 2: Strategy 2: which guard is most frequently asleep on the same minute? What is the ID of the guard you chose multiplied by the minute you chose?
 
-# Day 5: Alchemical Reduction
+## Day 5: Alchemical Reduction
 
 **Text Processing and Stacks**: How many times am I not going to reach for a stack when solving a problem related to text processing?! I solved this originally using loops with some nasty index tracking. This worked but wasn't anywhere near as clean as using a simple stack. **Whenever I see text processing problem, I should think of reaching for a stack based solution.**
 
@@ -42,14 +60,14 @@ Throw each char on a stack and wait for the sibling character to arrive.
 
 
 
-# Day 6: Chronal Coordinates
+## Day 6: Chronal Coordinates
 
 >  Part 1: What is the size of the largest area that isn't infinite?
 
 >  Part 2: What is the size of the region containing all locations which have a total distance to all given coordinates of less than 10000?
 
 
-# Day 7 - The Sum of Its Parts (Topological Sort)
+## Day 7 - The Sum of Its Parts (Topological Sort)
 
 ### Part 1: In what order should the steps in your instructions be completed?
 
@@ -66,7 +84,7 @@ Thoughts on GoLang:
 1. **GoLang is verbose**. Setting up maps and filling them requires a lot of nil checking. Nothing is free.
 2. **List processesing isnt as easy** as it is in functional languages. Being able to slice and dice arrays is really convinent, and probably one of the reasons why a good amount of AoC participants are using Python to solve these problems.
 
-# Day 8: Memory Maneuver
+## Day 8: Memory Maneuver
 
 ### Part 1: What is the sum of all metadata entries?
 
