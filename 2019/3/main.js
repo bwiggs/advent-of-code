@@ -9,6 +9,7 @@ let points = {};
 function parseWire(w, fn) {
   let segments = w.split(',');
   let [x, y] = [0, 0];
+  let steps = 1;
   segments.forEach(s => {
 
     let dir = s.substring(0, 1);
@@ -29,18 +30,33 @@ function parseWire(w, fn) {
           x++;
           break;
       }
-      fn(x, y);
+      fn(`${x},${y}`, x, y, steps);
+      steps++;
     }
   });
 }
 
-parseWire(wires[0], (x, y) => {
-  points[`${x},${y}`] = true;
+parseWire(wires[0], (id, x, y, steps) => {
+  points[id] = points[id] === undefined ?
+    steps :
+    Math.min(points[id], steps);
 });
+
 let minDist = Infinity;
-parseWire(wires[1], (x, y) => {
-  if (points[`${x},${y}`]) {
-    minDist = Math.min(minDist, Math.abs(x) + Math.abs(y));
+let minSteps = Infinity;
+parseWire(wires[1], (id, x, y, steps) => {
+  let prevSteps = points[id];
+  if (prevSteps === undefined) {
+    return;
+  }
+  let totalSteps = prevSteps + steps;
+  // let dist = Math.abs(x) + Math.abs(y);
+  if (totalSteps < minSteps) {
+    minSteps = totalSteps;
   }
 });
-console.log(minDist);
+
+console.log({
+  minDist,
+  minSteps
+});
